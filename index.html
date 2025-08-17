@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <style>
+      html,
+      body {
+        background-color: black;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        color: rgba(255, 255, 255, 0.829);
+
+        align-items: center;
+        justify-content: center;
+
+        font-family: "Press Start 2P", system-ui;
+        font-weight: 400;
+        font-size: xx-large;
+        font-style: normal;
+      }
+
+      #group {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 2em;
+      }
+
+      .time-sections {
+        display: flex;
+        flex-direction: row;
+        gap: 1em;
+      }
+
+      .vars {
+        color: #407c97;
+      }
+    </style>
+
+    <title>Senior Year Timer</title>
+  </head>
+  <body>
+    <div id="group">
+      <section class="time-sections">
+        <div
+          id="weeks"
+          class="vars"
+        ></div>
+        <div>WEEKS LEFT</div>
+      </section>
+      <section class="time-sections">
+        <div
+          id="days"
+          class="vars"
+        ></div>
+        <div>DAYS LEFT</div>
+      </section>
+      <section class="time-sections">
+        <div
+          id="hours"
+          class="vars"
+        ></div>
+        <div>HOURS</div>
+        <div
+          id="minutes"
+          class="vars"
+        ></div>
+        <div>MINUTES</div>
+        <div
+          id="seconds"
+          class="vars"
+        ></div>
+        <div>SECONDS</div>
+      </section>
+    </div>
+
+    <script>
+      const DAY_TO = new Date("2026-01-28T00:00:00-04:00");
+
+      const weeks_div = document.getElementById("weeks");
+      const days_div = document.getElementById("days");
+      const hours_div = document.getElementById("hours");
+      const minutes_div = document.getElementById("minutes");
+      const seconds_div = document.getElementById("seconds");
+
+      const calc_days = (date) => {
+        const now = new Date(
+          new Date().toLocaleString("en-US", { timeZone: "America/New_York" })
+        );
+        const diffTime = date - now;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        return diffDays;
+      };
+      const calc_time = (date) => {
+        const now = new Date(
+          new Date().toLocaleString("en-US", { timeZone: "America/New_York" })
+        );
+        const diffTime = date - now;
+
+        const totalSeconds = Math.floor(diffTime / 1000);
+        const hours = Math.floor(totalSeconds / 3600); // total hours
+        const minutes = Math.floor((totalSeconds % 3600) / 60); // 0–59
+        const seconds = totalSeconds % 60; // 0–59
+
+        return { hours: hours, minutes: minutes, seconds: seconds };
+      };
+
+      function update_weeks_div() {
+        const weeks_left = Math.floor(calc_days(DAY_TO) / 7);
+
+        weeks_div.innerText = weeks_left;
+      }
+
+      function update_days_div() {
+        const daysLeft = calc_days(DAY_TO);
+
+        days_div.innerText = daysLeft;
+      }
+      function update_timer_div() {
+        const time_data = calc_time(DAY_TO);
+
+        hours_div.innerText = time_data.hours;
+        minutes_div.innerText = time_data.minutes;
+        seconds_div.innerText = time_data.seconds;
+      }
+
+      update_weeks_div();
+      update_days_div();
+      update_timer_div();
+
+      setInterval(() => {
+        update_weeks_div();
+        update_days_div();
+        update_timer_div();
+      }, 1000);
+    </script>
+  </body>
+</html>
