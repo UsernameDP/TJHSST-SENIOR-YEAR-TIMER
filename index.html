@@ -67,11 +67,28 @@
 
       .backdrop-text {
         position: absolute;
-        font-size: xx-large;
+        /* font-size: xx-large; */
         left: 0;
         top: 0;
         white-space: nowrap;
         opacity: 0.3;
+      }
+
+      .sub-section {
+        display: flex;
+        gap: 1em;
+      }
+
+      @media (max-width: 1000px) {
+        #group {
+          font-size: 0.9rem;
+        }
+        .backdrop-text {
+          font-size: 0.5rem;
+        }
+        .time-section-extra {
+          flex-direction: column;
+        }
       }
     </style>
 
@@ -100,22 +117,28 @@
         ></div>
         <div>DAYS LEFT</div>
       </section>
-      <section class="time-sections">
-        <div
-          id="hours"
-          class="vars"
-        ></div>
-        <div>HOURS</div>
-        <div
-          id="minutes"
-          class="vars"
-        ></div>
-        <div>MINUTES</div>
-        <div
-          id="seconds"
-          class="vars"
-        ></div>
-        <div>SECONDS</div>
+      <section class="time-sections time-section-extra">
+        <section class="sub-section">
+          <div
+            id="hours"
+            class="vars"
+          ></div>
+          <div>HOURS</div>
+        </section>
+        <section class="sub-section">
+          <div
+            id="minutes"
+            class="vars"
+          ></div>
+          <div>MINUTES</div>
+        </section>
+        <section class="sub-section">
+          <div
+            id="seconds"
+            class="vars"
+          ></div>
+          <div>SECONDS</div>
+        </section>
       </section>
     </div>
 
